@@ -20,9 +20,9 @@
           pkgs = import nixpkgs { system = "${system}"; };
         in
         {
-          default = self.packages.${system}.proton-mail-free-flake.default;
+          default = self.packages.${system}.proton-mail-free-flake.cli;
           proton-mail-free-flake = {
-            default = pkgs.callPackage ./default.nix { };
+            cli = pkgs.callPackage ./default.nix { };
           };
         }
       );

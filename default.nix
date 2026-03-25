@@ -3,25 +3,26 @@
   buildGoModule,
   fetchFromGitHub,
   pkg-config,
+  libfido2,
   libsecret,
 }:
 
 buildGoModule rec {
   pname = "protonmail-bridge";
-  version = "495d5f0d9e88a6e75bfd496fc6234a51b61de7f1";
+  version = "3.23.1";
 
   src = fetchFromGitHub {
     owner = "mnixry";
     repo = "proton-bridge";
-    rev = "${version}";
-    hash = "sha256-IQgP+eWUCyViEBi0WFIOW2rXZLtoyVlrQrtAaqaLOv0=";
+    rev = "495d5f0d9e88a6e75bfd496fc6234a51b61de7f1";
+    hash = "sha256-xIeh3cp8kxZJ1mkARhrD9a1UVLKrixfGyJnIPAI+B6w=";
   };
 
-  vendorHash = "sha256-aW7N6uacoP99kpvw9E5WrHaQ0fZ4P5WGsNvR/FAZ+cA=";
+  vendorHash = "sha256-Ww42BbdMHVUUc074vWNYTEMr1myqDPLgkMsaTarziag=";
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [ libsecret libfido2 ];
 
   preBuild = ''
     patchShebangs ./utils/
@@ -30,7 +31,7 @@ buildGoModule rec {
 
   ldflags =
     let
-      constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
+      constants = "github.com/mnixry/proton-bridge/v3/internal/constants";
     in
     [
       "-X ${constants}.Version=${version}"

@@ -47,5 +47,6 @@ buildGoModule rec {
   postInstall = ''
     mv $out/bin/Desktop-Bridge $out/bin/protonmail-bridge # The cli is named like that in other distro packages
   '';
+  meta.mainProgram = "${pname}";
 }
 
